@@ -1,0 +1,6 @@
+__pycache__/
+*.py[cod]
+*$py.class
+_alpha_extrude_tex/
+.DS_Store
+Thumbs.db
