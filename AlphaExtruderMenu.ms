@@ -11,36 +11,32 @@
         local mainMenu = menuMan.getMainMenuBar()
         if mainMenu != undefined do
         (
-            local hasMenu = false
-            for i = 1 to (mainMenu.numItems()) do
+            for i = (mainMenu.numItems()) to 1 by -1 do
             (
                 local it = mainMenu.getItem i
                 if (it.getTitle()) == "抠图挤出" or (it.getTitle()) == "AlphaExtruder" do
                 (
-                    hasMenu = true
+                    mainMenu.removeItemByPosition i
                 )
             )
-            if not hasMenu do
+            local subMenu = menuMan.findMenu "AlphaExtruder"
+            if subMenu == undefined then
             (
-                local subMenu = menuMan.findMenu "AlphaExtruder"
-                if subMenu == undefined then
-                (
-                    subMenu = menuMan.createMenu "AlphaExtruder"
-                )
-                else
-                (
-                    while (subMenu.numItems()) > 0 do (subMenu.removeItemByPosition 1)
-                )
-                local actItem = menuMan.createActionItem "AlphaExtruder" "AlphaExtruder"
-                if actItem != undefined do
-                (
-                    actItem.setTitle "透明图抠图挤出工具 (打开面板)"
-                    actItem.setUseCustomTitle true
-                    subMenu.addItem actItem -1
-                    local subMenuItem = menuMan.createSubMenuItem "抠图挤出" subMenu
-                    mainMenu.addItem subMenuItem -1
-                    menuMan.updateMenuBar()
-                )
+                subMenu = menuMan.createMenu "AlphaExtruder"
+            )
+            else
+            (
+                while (subMenu.numItems()) > 0 do (subMenu.removeItemByPosition 1)
+            )
+            local actItem = menuMan.createActionItem "AlphaExtruder" "AlphaExtruder"
+            if actItem != undefined do
+            (
+                actItem.setTitle "透明图抠图挤出工具 (打开面板)"
+                actItem.setUseCustomTitle true
+                subMenu.addItem actItem -1
+                local subMenuItem = menuMan.createSubMenuItem "AlphaExtruder" subMenu
+                mainMenu.addItem subMenuItem -1
+                menuMan.updateMenuBar()
             )
         )
     )
